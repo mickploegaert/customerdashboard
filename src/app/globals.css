@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   MK Studios Dashboard design tokens
+   Dark base, light text, one purple accent. Use these tokens everywhere
+   instead of raw hex values so the theme stays consistent.
+--------------------------------------------------------------------------- */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas: #0a0a0c;
+  --color-surface: #121215;
+  --color-elevated: #19191d;
+  --color-hover: #1f1f24;
+  --color-line: #26262c;
+  --color-line-strong: #34343c;
+
+  --color-fg: #f1f1f4;
+  --color-muted: #b4b4be;
+  --color-subtle: #80808b;
+
+  --color-accent: #8b5cf6;
+  --color-accent-hover: #7c4dee;
+  --color-accent-soft: rgb(139 92 246 / 0.12);
+
+  --color-hot: #f97366;
+  --color-warm: #f5a524;
+  --color-low: #8b8b96;
+  --color-success: #34d399;
+  --color-danger: #f87171;
+  --color-info: #60a5fa;
+  --color-accent-text: #c4b5fd;
+  --color-tint: rgb(255 255 255 / 0.06);
+  --color-chart-line: #232329;
+  --color-chart-label: #6e6e78;
+
+  --animate-fade-in: fade-in 160ms ease-out;
+  --animate-scale-in: scale-in 160ms ease-out;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.97) translateY(4px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+}
+
+html {
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --color-canvas: #f4f3f7;
+  --color-surface: #ffffff;
+  --color-elevated: #ffffff;
+  --color-hover: #efeef3;
+  --color-line: #e4e2ea;
+  --color-line-strong: #d0ced6;
+  --color-fg: #18181b;
+  --color-muted: #3f3f46;
+  --color-subtle: #71717a;
+  --color-accent: #6d28d9;
+  --color-accent-hover: #5b21b6;
+  --color-accent-soft: rgb(109 40 217 / 0.1);
+  --color-accent-text: #5b21b6;
+  --color-hot: #c2410c;
+  --color-warm: #b45309;
+  --color-low: #52525b;
+  --color-success: #047857;
+  --color-danger: #b91c1c;
+  --color-info: #1d4ed8;
+  --color-tint: rgb(24 24 27 / 0.06);
+  --color-chart-line: #e4e2ea;
+  --color-chart-label: #71717a;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-fg);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "cv11", "ss01";
+}
+
+::selection {
+  background: rgb(139 92 246 / 0.35);
+}
+
+/* Thin, subtle scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line-strong) transparent;
+}
+
+/* ---------------------------------------------------------------------------
+   Leaflet overrides for the dark theme
+--------------------------------------------------------------------------- */
+.leaflet-container {
+  background: var(--color-canvas);
+  font-family: inherit;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--color-elevated);
+  color: var(--color-fg);
+  border: 1px solid var(--color-line-strong);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.18);
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+}
+.leaflet-popup-content {
+  margin: 14px 16px;
+}
+.leaflet-container a.leaflet-popup-close-button {
+  color: var(--color-subtle);
+}
+.leaflet-control-zoom a {
+  background: var(--color-elevated) !important;
+  color: var(--color-fg) !important;
+  border-color: var(--color-line-strong) !important;
+}
+.leaflet-control-attribution {
+  background: color-mix(in srgb, var(--color-canvas) 80%, transparent) !important;
+  color: var(--color-subtle) !important;
+}
+.leaflet-control-attribution a {
+  color: var(--color-muted) !important;
+}
+.lf-popup-title { font-weight: 600; font-size: 14px; color: var(--color-fg); margin-bottom: 2px; }
+.lf-popup-sub { font-size: 12px; color: var(--color-subtle); margin-bottom: 10px; }
+.lf-popup-row { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; padding: 2px 0; }
+.lf-popup-label { color: var(--color-muted); }
+.lf-popup-value { color: var(--color-fg); font-weight: 500; }
+.lf-popup-button {
+  margin-top: 12px;
+  width: 100%;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--color-accent);
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 0;
+}
+
+.lf-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #09090b;
+  border: 2px solid rgb(9 9 11 / 0.85);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.15), 0 4px 12px rgb(0 0 0 / 0.5);
+  transition: transform 120ms ease;
+}
+.lf-marker.is-selected {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 3px #8b5cf6, 0 4px 16px rgb(139 92 246 / 0.6);
+}
+.lf-cluster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgb(139 92 246 / 0.25);
+  border: 1px solid rgb(139 92 246 / 0.6);
+  color: var(--color-fg);
+  font-size: 12px;
+  font-weight: 600;
+  backdrop-filter: blur(2px);
+}
